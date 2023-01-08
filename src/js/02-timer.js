@@ -2,6 +2,7 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 
+// Declare variables
 const dateInput = document.querySelector('#datetime-picker');
 const daysLeft = document.querySelector('[data-days]');
 const hoursLeft = document.querySelector('[data-hours]');
@@ -12,6 +13,7 @@ let timer = null;
 startButton.setAttribute('disabled', '');
 startButton.addEventListener('click', handleStart);
 
+//flatpickr options
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -47,21 +49,28 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
+// Add 0 to one-digit numbers and convert to string
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
 
+// When start button is pressed
 function handleStart(e) {
   let timeEnd = new Date(dateInput.value).getTime();
+
+  //clear previous timer if any is running
   clearInterval(timer);
 
   timer = setInterval(() => {
     let timestart = Date.now();
     let timeLeft = convertMs(timeEnd - timestart);
+
     if (timeEnd - timestart <= 0) {
+      //if countdown goes below 0 stop the timer
       clearInterval(timer);
       Notiflix.Notify.success('Timer Reached 0!');
     } else {
+      //keep updating the timer
       daysLeft.textContent = addLeadingZero(timeLeft.days);
       hoursLeft.textContent = addLeadingZero(timeLeft.hours);
       minutesLeft.textContent = addLeadingZero(timeLeft.minutes);
