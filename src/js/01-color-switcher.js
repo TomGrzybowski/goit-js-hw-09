@@ -10,7 +10,7 @@ stopButton.setAttribute('disabled', '');
 function handleStart(e) {
   startButton.setAttribute('disabled', '');
   stopButton.removeAttribute('disabled');
-
+  body.style.backgroundColor = getRandomHexColor();
   colorSwitcher = setInterval(() => {
     body.style.backgroundColor = getRandomHexColor();
   }, 1000);
