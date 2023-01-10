@@ -57,6 +57,9 @@ function createPromises() {
         );
       })
       .catch(({ position, delay }) => {
+        if (position === amount) {
+          button.removeAttribute('disabled', '');
+        }
         Notiflix.Notify.failure(
           `❌ Rejected promise ${position} in ${delay}ms`
         );
